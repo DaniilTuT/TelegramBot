@@ -1,26 +1,25 @@
-﻿namespace Domain.ValueObjects;
+﻿using System.Text.Json;
+
+namespace Domain.ValueObjects;
 
 public abstract class BaseValueObject
 {
+    
     public override bool Equals(object? obj)
     {
-        if (obj == null)
-        {
+        if (obj == null || obj is not BaseValueObject valueObject)
             return false;
-        }
-
-        if (ReferenceEquals(this, obj))
-        {
-            return true;
-        }
         
+        var thisSerialize = JsonSerializer.Serialize(this);
+        var valueSerialize = JsonSerializer.Serialize(valueObject);
+        if (string.Compare(thisSerialize, valueSerialize) !=0)
+            return false;
         
-        //TODO: как сравнивать (Deep clone, Deep Compare)
-        return base.Equals(obj);
+        return true;
     }
 
     public override int GetHashCode()
     {
-        return base.GetHashCode();
+        return JsonSerializer.Serialize(this).GetHashCode();
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace Application.Dtos;
 
-public class PersonGetByIdResponse
+public class PersonGetResponse
 {
     public Guid Id { get; set; }
     

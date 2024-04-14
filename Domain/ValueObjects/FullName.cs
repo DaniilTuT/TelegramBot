@@ -1,9 +1,11 @@
-﻿namespace Domain.ValueObjects;
+﻿using Domain.Entities;
+
+namespace Domain.ValueObjects;
 
 /// <summary>
 /// Ф.И.О.
 /// </summary>
-public class FullName
+public class FullName: BaseValueObject
 {
     public FullName(string firstName, string lastName, string middleName)
     {
@@ -11,6 +13,7 @@ public class FullName
         LastName = lastName;
         MiddleName = middleName;
     }
+    
     /// <summary>
     /// Имя 
     /// </summary>

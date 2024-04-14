@@ -1,7 +1,8 @@
 ﻿namespace Application.Dtos;
 
-public class PersonGetByIdResponse
+public class PersonUpdateResponse
 {
+    
     public Guid Id { get; set; }
     
     public DateTime BirthDay { get; set; }
