@@ -50,17 +50,26 @@ public class PersonServices
         return personDto;
     }
 
-    public PersonUpdateResponse Update(Person person)
+    public PersonUpdateResponse Update(PersonUpdateRequest personUpdateRequest)
     {
+        var person = _personRepository.GetById(personUpdateRequest.Id);
+
+
+        person.Update(personUpdateRequest.FirstName,
+            personUpdateRequest.LastName,
+            personUpdateRequest.MiddleName, 
+            personUpdateRequest.PhoneNumber);
+
         _personRepository.Update(person);
 
         var config = new MapperConfiguration(cfg => cfg.CreateMap<Person, PersonUpdateResponse>());
         
         var mapper = new Mapper(config);
 
-        var personDto = mapper.Map<PersonUpdateResponse>(person);
+        var response = mapper.Map<PersonUpdateResponse>(person);
         
-        return personDto;}
+        return response;
+    }
 
     public void Delete(Guid id)
     {

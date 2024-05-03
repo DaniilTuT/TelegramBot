@@ -66,5 +66,17 @@ public class Person: BaseEntity
     public string Telegram { get; set; }
 
     public List<CustomField<string>> CustomFields { get; set; }
-    
+
+    public Person Update(string? firstName, string? lastName, string? middleName, string phoneNumber)
+    {
+        if (firstName is not null)
+        {
+            this.FullName.Update(firstName, lastName, middleName);
+        }
+        
+        
+        
+        
+        return this;
+    }
 }
