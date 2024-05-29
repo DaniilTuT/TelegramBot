@@ -12,4 +12,5 @@ public class PhoneNumberValidator: AbstractValidator<string>
             .NotEmpty().WithMessage(ValidationMessages.NotEmpty)
             .Matches(@"[+]{1}37377[4-9]{1}[0-9]{5}$").WithMessage(x => ValidationMessages.InvalidPhoneNumber(nameof(x)));
     }
+    
 }
