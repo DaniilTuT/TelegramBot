@@ -1,0 +1,12 @@
+Конфигурация бд:
+create table Persons (
+    id uuid not null primary key,
+    first_name varchar,
+    last_name varchar,
+    middle_name varchar,
+    gender int,
+    telegram varchar,
+    phone_number varchar,
+    birth_date date
+    );
+    

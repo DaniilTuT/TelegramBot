@@ -1,0 +1,10 @@
+@id = 821183b5-3a59-4fee-abfd-f7e31daa6df0
+
+
+
+GET http://localhost:5089/api/Person/GetById
+Content-Type: application/json
+
+{
+  "id": "{{id}}"
+}

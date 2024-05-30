@@ -20,5 +20,5 @@ public static class RegexPatterns
     /// <summary>
     /// Строка (только буквы)
     /// </summary>
-    public static readonly Regex LettersPattern = new(@"\\p{L}'?$");
+    public static readonly Regex LettersPattern = new(@"[A-Za-zА-Яа-я]+");
 }
