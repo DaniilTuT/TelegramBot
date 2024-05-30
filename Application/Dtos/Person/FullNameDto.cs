@@ -1,9 +1,10 @@
-﻿namespace Application.Dtos.Person;
+#nullable enable
+namespace Application.Dtos.Person;
 
 /// <summary>
-/// Полное имя для дто
+/// Дто полного имени
 /// </summary>
-public abstract class FullNameDto
+public class FullNameDto
 {
     /// <summary>
     /// Имя

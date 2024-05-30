@@ -1,41 +1,49 @@
-﻿using System.Diagnostics;
+using Ardalis.GuardClauses;
 
 namespace Domain.Entities;
 
 /// <summary>
 /// Базовый класс для всех сущностей
 /// </summary>
-
 public abstract class BaseEntity
 {
+    /// <summary>
+    /// Идентификатор
+    /// </summary>
+    public Guid Id { get; private set; }
+    
+    protected void SetId(Guid id)
+    {
+        Id = Guard.Against.NullOrEmpty(id);
+    }
     
     /// <summary>
-    /// Уникальный идентификатор
+    /// Переопределие метода Equals
     /// </summary>
-    public Guid Id { get; set; }
-
     public override bool Equals(object? obj)
     {
         if (obj == null)
-        {
             return false;
-        }
+
         if (obj is not BaseEntity entity)
+            return false;
+
+        if (Id != entity.Id)
+            return false;
+
+        if (this.GetHashCode() != entity.GetHashCode())
         {
             return false;
         }
-
-        if (ReferenceEquals(this, obj)) return true;
-        if (entity.Id != this.Id)
-        {
-            return false;
-        }
-
+        
         return true;
     }
 
+    /// <summary>
+    /// Переопределение метода GetHashCode
+    /// </summary>
     public override int GetHashCode()
     {
-        return HashCode.Combine(Id);
+        return Id.GetHashCode();
     }
 }

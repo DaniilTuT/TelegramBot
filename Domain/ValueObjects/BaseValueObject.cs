@@ -1,18 +1,21 @@
-﻿using System.Text.Json;
+using System.Text.Json;
 
-namespace Domain.ValueObjects;
+namespace Domain.Entities.ValueObjects;
 
+/// <summary>
+/// Базовый класс для Value Object
+/// </summary>
 public abstract class BaseValueObject
 {
-    
     public override bool Equals(object? obj)
     {
-        if (obj == null || obj is not BaseValueObject valueObject)
+        if (obj is not BaseValueObject entity || entity == null)
             return false;
-        
-        var thisSerialize = JsonSerializer.Serialize(this);
-        var valueSerialize = JsonSerializer.Serialize(valueObject);
-        if (string.Compare(thisSerialize, valueSerialize) !=0)
+
+        var serialEntity = JsonSerializer.Serialize(entity);
+        var serialThis = JsonSerializer.Serialize(this);
+
+        if (String.CompareOrdinal(serialEntity, serialThis) != 0)
             return false;
         
         return true;
@@ -22,4 +25,5 @@ public abstract class BaseValueObject
     {
         return JsonSerializer.Serialize(this).GetHashCode();
     }
+    
 }

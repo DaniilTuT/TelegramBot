@@ -1,6 +1,6 @@
-﻿namespace Application.Dtos.Person;
+namespace Application.Dtos.Person;
 
 /// <summary>
-/// Дто запроса на создание Person
+/// Дто запрос создания сущности Person
 /// </summary>
-public abstract class PersonCreateRequest: PersonBaseDto;
+public class PersonCreateRequest : BasePersonDto;

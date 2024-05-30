@@ -1,4 +1,4 @@
-﻿using Application.Dtos.Person;
+using Application.Dtos.Person;
 using Application.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,14 +8,14 @@ namespace Infrastructure.Api;
 public class PersonController:ControllerBase
 {
     [HttpGet]
-    public IActionResult Get([FromServices] PersonServices personService)
+    public IActionResult GetAll([FromServices] PersonService personService)
     {
-        var persons = personService.Get();
+        var persons = personService.GetAll();
         return Ok(persons);
     }
     
     [HttpGet("GetById")]
-    public IActionResult GetById([FromBody] PersonDeleteRequest request ,[FromServices] PersonServices personService)
+    public IActionResult GetById([FromBody] PersonDeleteRequest request ,[FromServices] PersonService personService)
     {
         var person = personService.GetById(request.Id);
         if (person == null)
@@ -24,22 +24,22 @@ public class PersonController:ControllerBase
         return Ok(person);
     }
     
-    [HttpPost("Add")]
-    public IActionResult Create([FromBody] PersonCreateRequest personDto, [FromServices] PersonServices personService)
+    [HttpPost("Create")]
+    public IActionResult Create([FromBody] PersonCreateRequest personDto, [FromServices] PersonService personService)
     {
-        personService.Create(personDto);
+         personService.Create(personDto);
         return Ok();
     }
     
     [HttpPut("Update")]
-    public IActionResult Update([FromBody] PersonUpdateRequest personUpdateRequest, [FromServices] PersonServices personService)
+    public IActionResult Update([FromBody] PersonUpdateRequest personUpdateRequest, [FromServices] PersonService personService)
     {
         var updatedPerson = personService.Update(personUpdateRequest);
         return Ok(updatedPerson);
     }
 
     [HttpDelete("Delete")]
-    public IActionResult Delete([FromRoute] Guid id, [FromServices] PersonServices personService)
+    public IActionResult Delete(Guid id, [FromServices] PersonService personService)
     {
         personService.Delete(id);
         return Ok();

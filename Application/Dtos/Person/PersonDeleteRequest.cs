@@ -1,9 +1,9 @@
-﻿namespace Application.Dtos.Person;
+namespace Application.Dtos.Person;
 
-public abstract class PersonDeleteRequest: PersonBaseDto
+/// <summary>
+/// Дто запрос удаления сущности Person
+/// </summary>
+public class PersonDeleteRequest
 {
-    /// <summary>
-    /// Идентификатор
-    /// </summary>
     public Guid Id { get; init; }
 }

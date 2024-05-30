@@ -1,6 +1,9 @@
-﻿namespace Application.Dtos.Person;
+namespace Application.Dtos.Person;
 
-public abstract class PersonUpdateResponse : PersonBaseDto
+/// <summary>
+/// Дто ответ на обновление сущности Person
+/// </summary>
+public class PersonUpdateResponse : BasePersonDto
 {
-    public Guid id { get; init; } 
+    public Guid Id { get; init; }
 }

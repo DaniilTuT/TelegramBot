@@ -1,70 +1,28 @@
-﻿using Domain.ValueObjects;
-using System.Text.RegularExpressions;
-using Domain.Primitives;
+using Ardalis.GuardClauses;
+using Domain.Entities.ValueObjects;
 using Domain.Primitives.Enums;
 using Domain.Validations.Validators;
-using Domain.Validators;
-using FluentValidation;
+using Domain.Validations;
 
 namespace Domain.Entities;
 
 /// <summary>
-/// Person - класс, представляющий человека с основными данными, такими как имя, дата рождения, возраст, номер телефона и телеграм-аккаунт.
+/// Сущность человека
 /// </summary>
 public class Person : BaseEntity
 {
-    public Person(Guid id ,FullName fullName, DateTime birthDay, string phoneNumber, string telegram, Gender gender)
-    {
-        Id = id;
-
-        var fullNameValidaator = new FullNameValidator();
-        fullNameValidaator.ValidateAndThrow(fullName);
-        FullName = fullName;
-
-        var phoneNumberValidator = new PhoneNumberValidator();
-        phoneNumberValidator.ValidateAndThrow(phoneNumber);
-        PhoneNumber = phoneNumber;
-
-        var telegramValidator = new TelegramValidator();
-        telegramValidator.ValidateAndThrow(telegram);
-        Telegram = telegram;
-
-        var birthDayValidator = new BirthDayValidator();
-        birthDayValidator.ValidateAndThrow(birthDay);
-        BirthDay = birthDay;
-
-
-        Gender = gender;
-    }
-    
-    public Person(FullName fullName, DateTime birthDay, string phoneNumber, string telegram, Gender gender)
-        {
-            var fullNameValidaator = new FullNameValidator();
-            fullNameValidaator.ValidateAndThrow(fullName);
-            FullName = fullName;
-    
-            var phoneNumberValidator = new PhoneNumberValidator();
-            phoneNumberValidator.ValidateAndThrow(phoneNumber);
-            PhoneNumber = phoneNumber;
-    
-            var telegramValidator = new TelegramValidator();
-            telegramValidator.ValidateAndThrow(telegram);
-            Telegram = telegram;
-    
-            var birthDayValidator = new BirthDayValidator();
-            birthDayValidator.ValidateAndThrow(birthDay);
-            BirthDay = birthDay;
-    
-    
-            Gender = gender;
-        }
     /// <summary>
-    /// Имя Фамиллия и Очество(опционально)
+    /// Имя
     /// </summary>
     public FullName FullName { get; set; }
-
+    
     /// <summary>
-    /// Дата дня рождения
+    /// Гендер
+    /// </summary>
+    public Gender Gender { get; set; }
+    
+    /// <summary>
+    /// Дата рождения
     /// </summary>
     public DateTime BirthDay { get; set; }
 
@@ -79,37 +37,58 @@ public class Person : BaseEntity
     /// Номер телефона
     /// </summary>
     public string PhoneNumber { get; set; }
-
+    
     /// <summary>
-    /// Гендер человека
-    /// </summary>
-    public Gender Gender { get; set; }
-
-    /// <summary>
-    /// ID Telegrama
+    /// Никнейм в телеграм
     /// </summary>
     public string Telegram { get; set; }
-
+    
+    /// <summary>
+    /// Кастомные поля
+    /// </summary>
     public List<CustomField<string>> CustomFields { get; set; }
 
+    /// <summary>
+    /// Конструктор
+    /// </summary>
+    public Person(
+        Guid id,
+        FullName fullName,
+        Gender gender,
+        DateTime birthDate,
+        string phoneNumber,
+        string telegram)
+    {
+        SetId(id);
+        FullName = Guard.Against.Null(fullName);
+        Gender = new EnumValidator<Gender>(nameof(gender), [Gender.None]).ValidateWithErrors(gender);
+        BirthDay = new BirthDayValidator(nameof(birthDate)).ValidateWithErrors(birthDate);
+        PhoneNumber = new PhoneNumberValidator(nameof(phoneNumber)).ValidateWithErrors(phoneNumber);
+        Telegram = new TelegramValidator(nameof(telegram)).ValidateWithErrors(telegram);
+    }
+
+    /// <summary>
+    /// Обновление Person.
+    /// </summary>
     public Person Update(
         string firstName,
         string lastName,
         string middleName,
         string phoneNumber,
         Gender gender,
-        DateTime birthDay,
+        DateTime birthDate,
         string telegram)
     {
         FullName.Update(firstName, lastName, middleName);
-        new PhoneNumberValidator().ValidateAndThrow(phoneNumber);
-        PhoneNumber = phoneNumber;
-        new EnumValidator<Gender>(nameof(gender), [Gender.None]).ValidateAndThrow(gender);
-        Gender = gender;
-        new BirthDayValidator().ValidateAndThrow(birthDay);
-        BirthDay = birthDay;
-        new TelegramValidator().ValidateAndThrow(telegram);
-        Telegram = telegram;
+        PhoneNumber = new PhoneNumberValidator(nameof(phoneNumber)).ValidateWithErrors(phoneNumber);
+        Gender = new EnumValidator<Gender>(nameof(gender), [Gender.None]).ValidateWithErrors(gender);
+        BirthDay = new BirthDayValidator(nameof(birthDate)).ValidateWithErrors(birthDate);
+        Telegram = new TelegramValidator(nameof(telegram)).ValidateWithErrors(telegram);
+        
         return this;
+    }
+
+    private Person()
+    {
     }
 }

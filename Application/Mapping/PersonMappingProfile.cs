@@ -1,9 +1,9 @@
-﻿using Application.Dtos.Person;
+using Application.Dtos.Person;
 using AutoMapper;
 using Domain.Entities;
-using Domain.ValueObjects;
+using Domain.Entities.ValueObjects;
 
-namespace Application.MappingProfile;
+namespace Application.Mapping;
 
 /// <summary>
 /// Маппинг для Person
@@ -12,11 +12,15 @@ public class PersonMappingProfile : Profile
 {
     public PersonMappingProfile()
     {
+        CreateMap<FullNameDto, FullName>();
+        
+        CreateMap<FullName, FullNameDto>();
+        
         CreateMap<Person, PersonGetByIdResponse>()
             .ForMember(dest => dest.FullName,
                 opt => opt.MapFrom(src => src.FullName));
         
-        CreateMap<Person, PersonGetResponse>()
+        CreateMap<Person, PersonGetAllResponse>()
             .ForMember(dest => dest.FullName,
                 opt => opt.MapFrom(src => src.FullName));
             
@@ -30,19 +34,20 @@ public class PersonMappingProfile : Profile
         
         CreateMap<PersonCreateRequest, Person>()
             .ConstructUsing(dto => new Person(
+                Guid.NewGuid(),
                 new FullName(dto.FullName.FirstName, dto.FullName.LastName, dto.FullName.MiddleName),
+                dto.Gender,
                 dto.BirthDay,
                 dto.PhoneNumber,
-                dto.Telegram,
-                dto.Gender));
+                dto.Telegram));
         
         CreateMap<PersonUpdateRequest, Person>()
             .ConstructUsing(dto => new Person(
                 dto.Id,
                 new FullName(dto.FullName.FirstName, dto.FullName.LastName, dto.FullName.MiddleName),
+                dto.Gender,
                 dto.BirthDay,
                 dto.PhoneNumber,
-                dto.Telegram,
-                dto.Gender));
+                dto.Telegram));
     }
 }

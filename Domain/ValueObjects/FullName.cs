@@ -1,54 +1,66 @@
-﻿using Domain.Entities;
-using Domain.Validators;
-using FluentValidation;
+using System.ComponentModel.DataAnnotations;
+using Domain.Validations;
+using Domain.Validations.Validators;
 
-namespace Domain.ValueObjects;
+namespace Domain.Entities.ValueObjects;
 
 /// <summary>
-/// Ф.И.О.
+/// Value Object для полного имени
 /// </summary>
-public class FullName: BaseValueObject
+public class FullName : BaseValueObject
 {
-    public FullName(string firstName, string lastName, string middleName)
-    {
-        FirstName = firstName;
-        LastName = lastName;
-        MiddleName = middleName;
-        var fullNameValidaator = new FullNameValidator();
-        fullNameValidaator.ValidateAndThrow(this);
-    }
+    /// <summary>
+    /// Имя
+    /// </summary>
+    public string FirstName { get; set; }
     
     /// <summary>
-    /// Имя 
+    /// Фамилия
     /// </summary>
-    public string FirstName { get; private set; }
-    /// <summary>
-    /// Фамилия 
-    /// </summary>
-    public string LastName { get; private set; }
-    
-    /// <summary>
-    /// Может быть отчеством
-    /// </summary>
-    public string? MiddleName { get; private set; } = null;
+    public string LastName { get; set; }
 
-    public FullName Update(string? firstName, string? lastName, string? middleName)
+    /// <summary>
+    /// Отчество
+    /// </summary>
+    public string? MiddleName { get; set; } = null;
+
+    /// <summary>
+    /// Конструктор
+    /// </summary>
+    public FullName(string firstName, string lastName, string? middleName)
+    {
+        FirstName = new NameValidator(nameof(firstName)).ValidateWithErrors(firstName);
+        LastName = new NameValidator(nameof(lastName)).ValidateWithErrors(lastName);
+        if (middleName is not null)
+        {
+            MiddleName = new NameValidator(nameof(middleName)).ValidateWithErrors(middleName);
+        }
+    }
+
+    /// <summary>
+    /// Обновление FullName
+    /// </summary>
+    public FullName Update(string firstName, string lastName, string middleName)
     {
         if (firstName is not null)
         {
-            FirstName = firstName;
+            FirstName = new NameValidator(nameof(firstName)).ValidateWithErrors(firstName);
         }
+
         if (lastName is not null)
         {
-            LastName = lastName;
+            LastName = new NameValidator(nameof(lastName)).ValidateWithErrors(lastName);
         }
+
         if (middleName is not null)
         {
-            MiddleName = middleName;
+            MiddleName = new NameValidator(nameof(middleName)).ValidateWithErrors(middleName);
         }
-        var fullNameValidaator = new FullNameValidator();
-        fullNameValidaator.ValidateAndThrow(this);
 
         return this;
+    }
+
+    private FullName()
+    {
     }
 }

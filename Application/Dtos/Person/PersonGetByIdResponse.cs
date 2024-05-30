@@ -1,9 +1,6 @@
-﻿namespace Application.Dtos.Person;
+namespace Application.Dtos.Person;
 
 /// <summary>
-/// Дто ответа на запрос по индексу Person
+/// Дто ответ на получение сущности Person
 /// </summary>
-public abstract class PersonGetByIdResponse : PersonBaseDto
-{
-    public Guid id { get; init; } 
-}
+public class PersonGetByIdResponse : BasePersonDto;

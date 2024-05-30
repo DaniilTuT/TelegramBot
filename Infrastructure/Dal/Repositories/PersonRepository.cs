@@ -1,5 +1,6 @@
-﻿using Application.Interfaces;
+using Application.Interfaces.Repositories;
 using Domain.Entities;
+using Infrastructure.Dal.EntityFramework;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Dal.Repositories;
@@ -15,35 +16,33 @@ public class PersonRepository: IPersonRepository
 
     public Person? GetById(Guid id)
     {
-        
-        var person=_telegramBotDbContext.Persons.FirstOrDefault(x => x.Id == id);
-        return person;
+       var person=_telegramBotDbContext.persons.FirstOrDefault(x => x.Id == id);
+       return person;
     }
 
-    public List<Person> Get()
+    public List<Person> GetAll()
     {
-        var persons = _telegramBotDbContext.Persons.ToList();
-        return persons;
+        var persons = _telegramBotDbContext.persons.ToList();
+       return persons;
     }
 
-    public Person Create(Person entity)
+    public void Create(Person entity)
     {
-        _telegramBotDbContext.Persons.AddAsync(entity);
+        _telegramBotDbContext.persons.AddAsync(entity);
         _telegramBotDbContext.SaveChangesAsync();
-        return entity;
     }
 
-    public Person Update(Person entity)
+    public bool Update(Person entity)
     {
         _telegramBotDbContext.Entry(entity).State = EntityState.Modified;
         _telegramBotDbContext.SaveChangesAsync();
-        return entity;
+        return true;
     }
 
-    public void Delete(Guid id)
+    public void Delete(Person entity)
     {
-        var entity =  _telegramBotDbContext.Persons.Find(id);
-        _telegramBotDbContext.Persons.Remove(entity);
+        var entitys =  _telegramBotDbContext.persons.Find(entity.Id);
+        _telegramBotDbContext.persons.Remove(entitys);
         _telegramBotDbContext.SaveChangesAsync();
     }
 

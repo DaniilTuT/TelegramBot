@@ -1,11 +1,11 @@
-﻿using Domain.Primitives.Enums;
+using Domain.Primitives.Enums;
 
 namespace Application.Dtos.Person;
 
 /// <summary>
 /// Базовое дто для Person
 /// </summary>
-public class PersonBaseDto
+public class BasePersonDto
 {
     /// <summary>
     /// Полное имя
@@ -25,9 +25,7 @@ public class PersonBaseDto
     /// <summary>
     /// Возраст
     /// </summary>
-    public int Age => (DateTime.Now.Month - BirthDay.Month >= 0 && DateTime.Now.Day - BirthDay.Day >= 0)
-        ? DateTime.Now.Year - BirthDay.Year
-        : DateTime.Now.Year - BirthDay.Year - 1;
+    public int Age => DateTime.Now.Year - BirthDay.Year;
 
     /// <summary>
     /// Номер телефона

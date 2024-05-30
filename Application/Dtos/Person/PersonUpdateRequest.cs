@@ -1,9 +1,9 @@
-﻿namespace Application.Dtos.Person;
+namespace Application.Dtos.Person;
 
-public abstract class PersonUpdateRequest: PersonBaseDto
+/// <summary>
+/// Дто запрос обновления сущности Person
+/// </summary>
+public class PersonUpdateRequest : BasePersonDto
 {
-    /// <summary>
-    /// Идентификатор
-    /// </summary>
     public Guid Id { get; init; }
 }

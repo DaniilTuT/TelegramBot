@@ -1,4 +1,4 @@
-﻿namespace Domain.Primitives.Enums;
+namespace Domain.Primitives.Enums;
 
 /// <summary>
 /// Перечисление для гердера
