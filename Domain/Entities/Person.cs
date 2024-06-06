@@ -91,4 +91,14 @@ public class Person : BaseEntity
     private Person()
     {
     }
+
+    public void ConsoleWriteLine()
+    {
+        Console.WriteLine("Full Name: "+this.FullName.FirstName+ ' ' + this.FullName.LastName + ' ' + this.FullName.MiddleName);
+        Console.WriteLine("Gender: "+this.Gender);
+        Console.WriteLine("BirthDay: "+this.BirthDay);
+        Console.WriteLine("Tg: "+this.Telegram);
+        Console.WriteLine("Phone Number: "+this.PhoneNumber);
+        Console.WriteLine("Id: "+this.Id+"\n");
+    }
 }

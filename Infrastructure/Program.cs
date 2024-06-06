@@ -3,6 +3,7 @@ using Application.Mapping;
 using Application.Services;
 using Infrastructure.Dal.EntityFramework;
 using Infrastructure.Dal.Repositories;
+using Infrastructure1;
 using Infrastructure1.Jobs;
 using Microsoft.EntityFrameworkCore;
 using Quartz;
@@ -19,30 +20,24 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IPersonRepository, PersonRepository>();
 builder.Services.AddScoped<PersonService>();
-///TODO: типизировать блок CronExpression
-var testJobCronExpression = builder.Configuration["CronExpression:TestJob"];
-
-
+var cronExpression = builder.Configuration.GetSection("CronExpressions").Get<CronExpressions>();
 builder.Services.AddQuartz(x =>
 {
     /// найти современный вариань
-    x.UseMicrosoftDependencyInjectionFactory();
-
+    
     var jobKey = new JobKey("TestJob");
 
-    x.AddJob<TestJob>(opts => opts.WithIdentity(jobKey));
+    x.AddJob<PersonFindBirthdaysJob>(opts => opts.WithIdentity(jobKey));
 
     var triggerKey = new TriggerKey("TestJobTrigger");
 
     x.AddTrigger(opts => opts.ForJob(jobKey).WithIdentity(triggerKey)
-        .WithCronSchedule(testJobCronExpression));
+        .WithCronSchedule(cronExpression.PersonFindBirthdaysJob));
 });
-///TODO: Read about Cron, добавить cron запись в appsettings
-
 
 builder.Services.AddQuartzHostedService(opt =>
 {
-    opt.WaitForJobComplete = true;
+    opt.WaitForJobsToComplete = true;
 });
 
 var app = builder.Build();

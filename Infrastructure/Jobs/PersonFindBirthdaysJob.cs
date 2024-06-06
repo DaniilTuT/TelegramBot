@@ -1,4 +1,5 @@
 ﻿using Application.Interfaces.Repositories;
+using Quartz;
 
 namespace Infrastructure1.Jobs;
 
@@ -11,13 +12,13 @@ public class PersonFindBirthdaysJob : IJob
         _personRepository = personRepository;
     }
     
-    public Task Execute(IJobExecuteContext context)
-    { ///TODO: MAIN SUKA Сделать логику получения человека у которого сегодня в текущий день  день рождения и вывод на консолб
-      
-        var persons = _personRepository.GetAll();
+    public Task Execute(IJobExecutionContext context)
+    {
+        var persons = _personRepository.GetAllByBirthday();
         foreach (var person in  persons)
         {
-            
+            person.ConsoleWriteLine();
         }
+        return Task.CompletedTask;
     }
 }

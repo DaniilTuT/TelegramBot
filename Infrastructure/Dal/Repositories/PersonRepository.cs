@@ -24,6 +24,13 @@ public class PersonRepository: IPersonRepository
     {
         var persons = _telegramBotDbContext.persons.ToList();
        return persons;
+    } 
+    public List<Person> GetAllByBirthday()
+    {
+        var persons = _telegramBotDbContext.persons
+            .Where(x => x.BirthDay.Day == DateTime.Now.Day &&
+                        x.BirthDay.Month == DateTime.Now.Month).ToList();
+       return persons;
     }
 
     public void Create(Person entity)

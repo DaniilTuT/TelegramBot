@@ -1,3 +1,4 @@
+using System.Collections;
 using Domain.Entities;
 
 namespace Application.Interfaces.Repositories;
@@ -11,4 +12,6 @@ public interface IPersonRepository : IBaseRepository<Person>
     /// Получение кастомных полей
     /// </summary>
     public List<CustomField<string>> GetCustomFields();
+
+    public List<Person> GetAllByBirthday();
 }
