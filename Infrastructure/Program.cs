@@ -1,10 +1,11 @@
+using System.Runtime.Intrinsics.X86;
 using Application.Interfaces.Repositories;
 using Application.Mapping;
 using Application.Services;
 using Infrastructure.Dal.EntityFramework;
 using Infrastructure.Dal.Repositories;
-using Infrastructure1;
-using Infrastructure1.Jobs;
+using Infrastructure;
+using Infrastructure.Jobs;
 using Microsoft.EntityFrameworkCore;
 using Quartz;
 
@@ -20,19 +21,23 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IPersonRepository, PersonRepository>();
 builder.Services.AddScoped<PersonService>();
-var cronExpression = builder.Configuration.GetSection("CronExpressions").Get<CronExpressions>();
+var cronExpressionSettings = builder.Configuration.GetSection("CronExpressions").Get<CronExpressionsSettings>();
+builder.Services.Configure<TelegramSettings>(builder.Configuration.GetSection("TelegramSettings"));
 builder.Services.AddQuartz(x =>
 {
-    /// найти современный вариань
+    var jobKey = new JobKey("PersonFindBirthdaysJob");
+    var telegramJobKey = new JobKey("TelegramCreatePersonJob");
     
-    var jobKey = new JobKey("TestJob");
-
     x.AddJob<PersonFindBirthdaysJob>(opts => opts.WithIdentity(jobKey));
+    x.AddJob<TelegramCreatePersonJob>(opts => opts.WithIdentity(telegramJobKey));
+    
+    var triggerKey = new TriggerKey("PersonFindBirthdaysJobTrigger");
+    var telegramTriggerKey = new TriggerKey("TelegramCreatePersonJob");
 
-    var triggerKey = new TriggerKey("TestJobTrigger");
-
+    x.AddTrigger(opts => opts.ForJob(telegramJobKey).WithIdentity(telegramTriggerKey));
+    
     x.AddTrigger(opts => opts.ForJob(jobKey).WithIdentity(triggerKey)
-        .WithCronSchedule(cronExpression.PersonFindBirthdaysJob));
+        .WithCronSchedule(cronExpressionSettings.PersonFindBirthdaysJob));
 });
 
 builder.Services.AddQuartzHostedService(opt =>

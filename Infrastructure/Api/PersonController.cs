@@ -3,9 +3,10 @@ using Application.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Infrastructure.Api;
+
 [Route("api/[controller]")]
 [ApiController]
-public class PersonController:ControllerBase
+public class PersonController : ControllerBase
 {
     [HttpGet]
     public IActionResult GetAll([FromServices] PersonService personService)
@@ -13,9 +14,9 @@ public class PersonController:ControllerBase
         var persons = personService.GetAll();
         return Ok(persons);
     }
-    
+
     [HttpGet("GetById")]
-    public IActionResult GetById([FromBody] PersonDeleteRequest request ,[FromServices] PersonService personService)
+    public IActionResult GetById([FromBody] PersonDeleteRequest request, [FromServices] PersonService personService)
     {
         var person = personService.GetById(request.Id);
         if (person == null)
@@ -23,16 +24,17 @@ public class PersonController:ControllerBase
 
         return Ok(person);
     }
-    
+
     [HttpPost("Create")]
     public IActionResult Create([FromBody] PersonCreateRequest personDto, [FromServices] PersonService personService)
     {
-         personService.Create(personDto);
+        personService.Create(personDto);
         return Ok();
     }
-    
+
     [HttpPut("Update")]
-    public IActionResult Update([FromBody] PersonUpdateRequest personUpdateRequest, [FromServices] PersonService personService)
+    public IActionResult Update([FromBody] PersonUpdateRequest personUpdateRequest,
+        [FromServices] PersonService personService)
     {
         var updatedPerson = personService.Update(personUpdateRequest);
         return Ok(updatedPerson);
