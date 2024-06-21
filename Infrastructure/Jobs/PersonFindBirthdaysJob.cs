@@ -28,9 +28,4 @@ public class PersonFindBirthdaysJob : IJob
             await _telegramBotClient.SendTextMessageAsync("1440746487", person.FullName.FirstName+"   " +  person.BirthDay.ToString());
         }
     }
-
-    public async Task SendMessageAsync(string message)
-    {
-        await _telegramBotClient.SendTextMessageAsync("1440746487", "huita");
-    }
 }

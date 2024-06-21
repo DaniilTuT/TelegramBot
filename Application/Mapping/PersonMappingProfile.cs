@@ -39,7 +39,9 @@ public class PersonMappingProfile : Profile
                 dto.Gender,
                 dto.BirthDay,
                 dto.PhoneNumber,
-                dto.Telegram));
+                dto.Telegram,
+                dto.ChatId
+                ));
         
         CreateMap<PersonUpdateRequest, Person>()
             .ConstructUsing(dto => new Person(
@@ -48,6 +50,8 @@ public class PersonMappingProfile : Profile
                 dto.Gender,
                 dto.BirthDay,
                 dto.PhoneNumber,
-                dto.Telegram));
+                dto.Telegram,
+                dto.ChatId
+                ));
     }
 }

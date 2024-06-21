@@ -42,7 +42,11 @@ public class Person : BaseEntity
     /// Никнейм в телеграм
     /// </summary>
     public string Telegram { get; set; }
-    
+
+    /// <summary>
+    /// ID чата в котором создана сущность
+    /// </summary>
+    public long ChatId { get; set; }
     /// <summary>
     /// Кастомные поля
     /// </summary>
@@ -57,7 +61,8 @@ public class Person : BaseEntity
         Gender gender,
         DateTime birthDate,
         string phoneNumber,
-        string telegram)
+        string telegram,
+        long chatId)
     {
         SetId(id);
         FullName = Guard.Against.Null(fullName);
@@ -65,6 +70,7 @@ public class Person : BaseEntity
         BirthDay = new BirthDayValidator(nameof(birthDate)).ValidateWithErrors(birthDate);
         PhoneNumber = new PhoneNumberValidator(nameof(phoneNumber)).ValidateWithErrors(phoneNumber);
         Telegram = new TelegramValidator(nameof(telegram)).ValidateWithErrors(telegram);
+        ChatId = chatId;
     }
 
     /// <summary>
@@ -100,5 +106,15 @@ public class Person : BaseEntity
         Console.WriteLine("Tg: "+this.Telegram);
         Console.WriteLine("Phone Number: "+this.PhoneNumber);
         Console.WriteLine("Id: "+this.Id+"\n");
+        Console.WriteLine("ChatId: "+this.ChatId+"\n");
+    }
+    public override string ToString()
+    {
+        return "Ф.И.О.: " + this.FullName.FirstName + ' ' + this.FullName.LastName + ' ' + this.FullName.MiddleName +
+               "\n" +
+               "Пол: " + this.Gender + "\n" +
+               "Дата Рождения: " + this.BirthDay.Date + "\n" +
+               "Телеграм тэг: " + this.Telegram + "\n" +
+               "Номер телефона: " + this.PhoneNumber;
     }
 }

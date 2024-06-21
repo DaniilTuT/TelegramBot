@@ -52,6 +52,10 @@ public class PersonConfiguration : IEntityTypeConfiguration<Person>
             .IsRequired()
             .HasColumnName("telegram");
 
+        builder.Property(p => p.ChatId)
+            .IsRequired()
+            .HasColumnName("chat_id");
+        
         builder.HasMany(p => p.CustomFields)
             .WithMany();
     }

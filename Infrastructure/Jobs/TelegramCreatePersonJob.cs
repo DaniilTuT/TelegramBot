@@ -188,9 +188,9 @@ public class TelegramCreatePersonJob : IJob
                                     TmpTelegram = new TelegramValidator(nameof(TmpTelegram)).ValidateWithErrors(message.Text);
                                     try
                                     {
-                                        _personRepository.Create(new Person(Guid.NewGuid(),TmpFullName,TmpGender,TmpBirthDay,TmpPhoneNumber,TmpTelegram));
+                                        _personRepository.Create(new Person(Guid.NewGuid(),TmpFullName,TmpGender,TmpBirthDay,TmpPhoneNumber,TmpTelegram, chat.Id));
                                         States[chat.Id] = CreateStates.None;
-                                        new Person(Guid.NewGuid(),TmpFullName,TmpGender,TmpBirthDay,TmpPhoneNumber,TmpTelegram).ConsoleWriteLine();
+                                        new Person(Guid.NewGuid(),TmpFullName,TmpGender,TmpBirthDay,TmpPhoneNumber,TmpTelegram,chat.Id).ConsoleWriteLine();
                                         await botClient.SendTextMessageAsync(
                                             chat.Id,
                                             "Все готово!");
@@ -217,7 +217,15 @@ public class TelegramCreatePersonJob : IJob
                             }
                             
                             
-                            
+                            if (message.Text == "/all")
+                            {
+                                var persons = _personRepository.GetAll().Where(p => p.ChatId == chat.Id).ToList();
+                                await botClient.SendTextMessageAsync(
+                                    chat.Id,
+                                    "Вот список ваших контактов",
+                                    replyMarkup: GetKeyboard.InlineKeyboardForGetAll(persons));
+                            }
+
                             
                             else
                             {
@@ -259,7 +267,23 @@ public class TelegramCreatePersonJob : IJob
                             "Введите дату рождения в формате дд.мм.гггг");
                         return;
                     }
-                    
+
+                    if (callbackQuery.Data.Length == 36)
+                    {
+                        try
+                        {
+                            var id = new Guid(callbackQuery.Data);
+                            var person = _personRepository.GetById(id);
+                            await botClient.SendTextMessageAsync(
+                                chat.Id,
+                                person.ToString());
+                        }
+                        catch (Exception e)
+                        {
+                            Console.WriteLine(e);
+                            throw;
+                        }
+                    }
                     
                     return;
                 }

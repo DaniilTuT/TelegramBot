@@ -26,15 +26,19 @@ builder.Services.Configure<TelegramSettings>(builder.Configuration.GetSection("T
 builder.Services.AddQuartz(x =>
 {
     var jobKey = new JobKey("PersonFindBirthdaysJob");
-    var telegramJobKey = new JobKey("TelegramCreatePersonJob");
+    var telegramCreateJobKey = new JobKey("TelegramCreatePersonJob");
+    //var telegramGetJobKey = new JobKey("TelegramGetAllPersonJob");
     
     x.AddJob<PersonFindBirthdaysJob>(opts => opts.WithIdentity(jobKey));
-    x.AddJob<TelegramCreatePersonJob>(opts => opts.WithIdentity(telegramJobKey));
+    x.AddJob<TelegramCreatePersonJob>(opts => opts.WithIdentity(telegramCreateJobKey));
+    //x.AddJob<TelegramGetAllPersonJob>(opts => opts.WithIdentity(telegramGetJobKey));
     
     var triggerKey = new TriggerKey("PersonFindBirthdaysJobTrigger");
-    var telegramTriggerKey = new TriggerKey("TelegramCreatePersonJob");
+    var telegramCreateTriggerKey = new TriggerKey("TelegramCreatePersonJob");
+    //var telegramGetTriggerKey = new TriggerKey("TelegramGetPersonJob");
 
-    x.AddTrigger(opts => opts.ForJob(telegramJobKey).WithIdentity(telegramTriggerKey));
+    x.AddTrigger(opts => opts.ForJob(telegramCreateJobKey).WithIdentity(telegramCreateTriggerKey));
+    //x.AddTrigger(opts => opts.ForJob(telegramGetJobKey).WithIdentity(telegramGetTriggerKey));
     
     x.AddTrigger(opts => opts.ForJob(jobKey).WithIdentity(triggerKey)
         .WithCronSchedule(cronExpressionSettings.PersonFindBirthdaysJob));

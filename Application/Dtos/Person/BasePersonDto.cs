@@ -36,4 +36,6 @@ public class BasePersonDto
     /// Никнейм в телеграм
     /// </summary>
     public string Telegram { get; init; }
+    
+    public int ChatId { get; init; }
 }
