@@ -1,4 +1,5 @@
 ﻿using Application.Interfaces.Repositories;
+using Domain.Primitives.Enums;
 using Microsoft.Extensions.Options;
 using Quartz;
 using Telegram.Bot;
@@ -25,7 +26,14 @@ public class PersonFindBirthdaysJob : IJob
         Console.WriteLine(persons);
         foreach (var person in  persons)
         {
-            await _telegramBotClient.SendTextMessageAsync("1440746487", person.FullName.FirstName+"   " +  person.BirthDay.ToString());
+            await _telegramBotClient.SendTextMessageAsync(
+                person.ChatId, 
+                @$"
+                Доброе утро!! 
+                {"\n"}Сегодня ваш контакт {person.FullName.FirstName} {person.FullName.LastName} празднует день рождения!!
+                {"\n"}Сегодня {(person.Gender == Gender.Male ? "он" : "она")} празднует свой {person.Age}й день рождения!! 
+                {"\n"}Вы можете позвонить ему по номеру: {person.PhoneNumber}
+                {"\n"}Или написать ему в телеграм: {person.Telegram}");
         }
     }
 }

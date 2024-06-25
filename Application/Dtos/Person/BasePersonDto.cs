@@ -25,7 +25,10 @@ public class BasePersonDto
     /// <summary>
     /// Возраст
     /// </summary>
-    public int Age => DateTime.Now.Year - BirthDay.Year;
+    public int Age => (DateTime.Now.Month - BirthDay.Month >= 0 && DateTime.Now.Day - BirthDay.Day >= 0)
+        ? DateTime.Now.Year - BirthDay.Year
+        : DateTime.Now.Year - BirthDay.Year - 1;
+
 
     /// <summary>
     /// Номер телефона
@@ -37,5 +40,5 @@ public class BasePersonDto
     /// </summary>
     public string Telegram { get; init; }
     
-    public int ChatId { get; init; }
+    public long ChatId { get; init; }
 }

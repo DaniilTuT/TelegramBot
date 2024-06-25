@@ -12,5 +12,6 @@ Content-Type: application/json
     "birthDay": "2000-02-21",
     "age": 0,
     "phoneNumber": "+37377731224",
-    "telegram": "@gfgfg0"
+    "telegram": "@gfgfg0",
+    "chatId": 1440746487
 }

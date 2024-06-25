@@ -1,19 +1,18 @@
-@id = 2932a187-5c72-4c10-82f7-469bd73e132d
-
+@id = 77bb0607-80a0-44dd-90ff-324f43b23a95
 PUT http://localhost:5089/api/Person/Update
 Content-Type: application/json
 
 {
   "fullName":
   {
-    "firstName": "Prosto",
-    "lastName": "Iiii",
+    "firstName": "NeProsto",
+    "lastName": "Iporniii",
     "middleName": null
   } ,
-  "gender": 1,
+  "gender": 2,
   "birthDay": "2000-02-21",
-  "age": 0,
-  "phoneNumber": "+37377731224",
-  "telegram": "@gfgfg0",
-  "id": "{{id}}"
+  "phoneNumber": "+37377738224",
+  "telegram": "@gfgf89",
+  "id": "{{id}}",
+  "chatId": "1440746487"
 }

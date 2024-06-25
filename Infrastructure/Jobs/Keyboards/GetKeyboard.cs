@@ -8,7 +8,7 @@ public static class GetKeyboard
     public static InlineKeyboardMarkup InlineKeyboardForGetAll(List<Person> persons)
     {
         var buttons = new List<InlineKeyboardButton[]>();
-    
+
         int numberOfRows = (int)Math.Ceiling((double)persons.Count / 2.0);
 
         for (int i = 0; i < numberOfRows; i++)
@@ -31,5 +31,4 @@ public static class GetKeyboard
 
         return new InlineKeyboardMarkup(buttons);
     }
-
 }
