@@ -16,10 +16,10 @@ public class PersonConfiguration : IEntityTypeConfiguration<Person>
     public void Configure(EntityTypeBuilder<Person> builder)
     {
         builder.HasKey(p => p.Id);
-        
+
         builder.Property(p => p.Id)
             .HasColumnName("id");
-        
+
         builder.OwnsOne(p => p.FullName, fullName =>
         {
             fullName.Property(f => f.FirstName)
@@ -55,7 +55,7 @@ public class PersonConfiguration : IEntityTypeConfiguration<Person>
         builder.Property(p => p.ChatId)
             .IsRequired()
             .HasColumnName("chat_id");
-        
+
         builder.HasMany(p => p.CustomFields)
             .WithMany();
     }

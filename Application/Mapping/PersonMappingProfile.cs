@@ -13,25 +13,25 @@ public class PersonMappingProfile : Profile
     public PersonMappingProfile()
     {
         CreateMap<FullNameDto, FullName>();
-        
+
         CreateMap<FullName, FullNameDto>();
-        
+
         CreateMap<Person, PersonGetByIdResponse>()
             .ForMember(dest => dest.FullName,
                 opt => opt.MapFrom(src => src.FullName));
-        
+
         CreateMap<Person, PersonGetAllResponse>()
             .ForMember(dest => dest.FullName,
                 opt => opt.MapFrom(src => src.FullName));
-            
+
         CreateMap<Person, PersonCreateResponse>()
             .ForMember(dest => dest.FullName,
                 opt => opt.MapFrom(src => src.FullName));
-        
+
         CreateMap<Person, PersonUpdateResponse>()
             .ForMember(dest => dest.FullName,
                 opt => opt.MapFrom(src => src.FullName));
-        
+
         CreateMap<PersonCreateRequest, Person>()
             .ConstructUsing(dto => new Person(
                 Guid.NewGuid(),
@@ -41,8 +41,8 @@ public class PersonMappingProfile : Profile
                 dto.PhoneNumber,
                 dto.Telegram,
                 dto.ChatId
-                ));
-        
+            ));
+
         CreateMap<PersonUpdateRequest, Person>()
             .ConstructUsing(dto => new Person(
                 dto.Id,
@@ -52,6 +52,6 @@ public class PersonMappingProfile : Profile
                 dto.PhoneNumber,
                 dto.Telegram,
                 dto.ChatId
-                ));
+            ));
     }
 }

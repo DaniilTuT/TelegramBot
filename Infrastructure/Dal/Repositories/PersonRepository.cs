@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Dal.Repositories;
 
-public class PersonRepository: IPersonRepository
+public class PersonRepository : IPersonRepository
 {
     private readonly TelegramBotDbContext _telegramBotDbContext;
 
@@ -16,21 +16,22 @@ public class PersonRepository: IPersonRepository
 
     public Person? GetById(Guid id)
     {
-       var person=_telegramBotDbContext.persons.FirstOrDefault(x => x.Id == id);
-       return person;
+        var person = _telegramBotDbContext.persons.FirstOrDefault(x => x.Id == id);
+        return person;
     }
 
     public List<Person> GetAll()
     {
         var persons = _telegramBotDbContext.persons.ToList();
-       return persons;
-    } 
+        return persons;
+    }
+
     public List<Person> GetAllByBirthday()
     {
         var persons = _telegramBotDbContext.persons
             .Where(x => x.BirthDay.Day == DateTime.Now.Day &&
                         x.BirthDay.Month == DateTime.Now.Month).ToList();
-       return persons;
+        return persons;
     }
 
     public void Create(Person entity)
@@ -48,7 +49,7 @@ public class PersonRepository: IPersonRepository
 
     public void Delete(Person entity)
     {
-        var entitys =  _telegramBotDbContext.persons.Find(entity.Id);
+        var entitys = _telegramBotDbContext.persons.Find(entity.Id);
         _telegramBotDbContext.persons.Remove(entitys);
         _telegramBotDbContext.SaveChangesAsync();
     }

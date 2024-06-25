@@ -10,12 +10,12 @@ public class FullNameDto
     /// Имя
     /// </summary>
     public string? FirstName { get; init; }
-    
+
     /// <summary>
     /// Фамилия
     /// </summary>
     public string? LastName { get; init; }
-    
+
     /// <summary>
     /// Отчество
     /// </summary>

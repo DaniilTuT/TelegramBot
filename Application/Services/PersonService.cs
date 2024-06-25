@@ -15,7 +15,7 @@ public class PersonService
     private readonly IPersonRepository _personRepository;
     private readonly IMapper _mapper;
 
-    
+
     public PersonService(IPersonRepository personRepository, IMapper mapper)
     {
         _personRepository = personRepository;
@@ -48,7 +48,7 @@ public class PersonService
         Guard.Against.Null(personCreateRequest);
 
         var person = _mapper.Map<Person>(personCreateRequest);
-         _personRepository.Create(person);
+        _personRepository.Create(person);
 
         return _mapper.Map<PersonCreateResponse>(person);
     }
@@ -70,9 +70,9 @@ public class PersonService
             personUpdateRequest.Gender,
             personUpdateRequest.BirthDay,
             personUpdateRequest.Telegram);
-        
+
         _personRepository.Update(person);
-        
+
         return _mapper.Map<PersonUpdateResponse>(person);
     }
 

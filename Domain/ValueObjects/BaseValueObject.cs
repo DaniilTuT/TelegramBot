@@ -17,7 +17,7 @@ public abstract class BaseValueObject
 
         if (String.CompareOrdinal(serialEntity, serialThis) != 0)
             return false;
-        
+
         return true;
     }
 
@@ -25,5 +25,4 @@ public abstract class BaseValueObject
     {
         return JsonSerializer.Serialize(this).GetHashCode();
     }
-    
 }

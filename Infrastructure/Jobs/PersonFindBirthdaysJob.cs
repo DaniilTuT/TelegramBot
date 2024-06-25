@@ -11,7 +11,7 @@ public class PersonFindBirthdaysJob : IJob
     private readonly IPersonRepository _personRepository;
     private readonly TelegramSettings _telegramSettings;
     private readonly TelegramBotClient _telegramBotClient;
-    
+
 
     public PersonFindBirthdaysJob(IPersonRepository personRepository, IOptions<TelegramSettings> telegramSettings)
     {
@@ -19,15 +19,15 @@ public class PersonFindBirthdaysJob : IJob
         _telegramSettings = telegramSettings.Value;
         _telegramBotClient = new TelegramBotClient(_telegramSettings.BotToken);
     }
-    
+
     public async Task Execute(IJobExecutionContext context)
     {
         var persons = _personRepository.GetAllByBirthday();
         Console.WriteLine(persons);
-        foreach (var person in  persons)
+        foreach (var person in persons)
         {
             await _telegramBotClient.SendTextMessageAsync(
-                person.ChatId, 
+                person.ChatId,
                 @$"
                 Доброе утро!! 
                 {"\n"}Сегодня ваш контакт {person.FullName.FirstName} {person.FullName.LastName} празднует день рождения!!

@@ -7,7 +7,7 @@ namespace Domain.Validations.Validators;
 /// </summary>
 public class EnumValidator<TEnum> : AbstractValidator<TEnum> where TEnum : Enum
 {
-    public EnumValidator(string paramName, params TEnum[] defaultValues) 
+    public EnumValidator(string paramName, params TEnum[] defaultValues)
     {
         foreach (var value in defaultValues)
         {

@@ -48,7 +48,7 @@ public class PersonTelegramHandlerJob : IJob
             AllowedUpdates =
                 new[]
                 {
-                    UpdateType.Message, 
+                    UpdateType.Message,
                     UpdateType.CallbackQuery
                 },
             ThrowPendingUpdates = true,
@@ -59,10 +59,10 @@ public class PersonTelegramHandlerJob : IJob
         _telegramBotClient.StartReceiving(UpdateHandler, ErrorHandler, _receiverOptions, cts.Token);
 
         var me = await _telegramBotClient
-            .GetMeAsync(); 
+            .GetMeAsync();
         Console.WriteLine($"{me.FirstName} запущен!");
 
-        await Task.Delay(-1); 
+        await Task.Delay(-1);
     }
 
 
@@ -89,7 +89,8 @@ public class PersonTelegramHandlerJob : IJob
                         {
                             if (message.Text == "/stop")
                             {
-                                if (States[chat.Id] !=  BotStates.None) {
+                                if (States[chat.Id] != BotStates.None)
+                                {
                                     States[chat.Id] = BotStates.None;
                                     await botClient.SendTextMessageAsync(
                                         chat.Id,
@@ -101,7 +102,7 @@ public class PersonTelegramHandlerJob : IJob
                                         chat.Id,
                                         "Вы не создаете запись.");
                                 }
-                                
+
                                 return;
                             }
 
@@ -315,8 +316,6 @@ public class PersonTelegramHandlerJob : IJob
                                         chat.Id,
                                         "У вас еще нет записей, вы можете создать их, используя команду /add");
                                 }
-
-                                
                             }
 
 
@@ -450,7 +449,7 @@ public class PersonTelegramHandlerJob : IJob
                     {
                         var person = _personRepository.GetById(Id[chat.Id]);
                         _personRepository.Delete(person);
-                        await botClient.DeleteMessageAsync(chat.Id,LastBotMessage[chat.Id]);
+                        await botClient.DeleteMessageAsync(chat.Id, LastBotMessage[chat.Id]);
                         await botClient.SendTextMessageAsync(
                             chat.Id,
                             "Запись успешно удалена");

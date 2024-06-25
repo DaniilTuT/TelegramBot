@@ -9,7 +9,7 @@ public class CustomField<TType> : BaseEntity
     /// Название
     /// </summary>
     public string Name { get; set; }
-    
+
     /// <summary>
     /// Значение
     /// </summary>

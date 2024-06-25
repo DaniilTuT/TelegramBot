@@ -13,7 +13,7 @@ public class FullName : BaseValueObject
     /// Имя
     /// </summary>
     public string FirstName { get; set; }
-    
+
     /// <summary>
     /// Фамилия
     /// </summary>

@@ -12,10 +12,11 @@ public class TelegramBotDbContext : DbContext
     public DbSet<Person> persons { get; init; }
     public DbSet<CustomField<string>> CustomFields { get; init; }
 
-    public TelegramBotDbContext(DbContextOptions<TelegramBotDbContext> options, IConfiguration configuration) : base(options)
+    public TelegramBotDbContext(DbContextOptions<TelegramBotDbContext> options, IConfiguration configuration) :
+        base(options)
     {
     }
-    
+
     /// <summary>
     /// Метод применения конфигураций
     /// </summary>

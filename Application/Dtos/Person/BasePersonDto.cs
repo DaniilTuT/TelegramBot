@@ -11,12 +11,12 @@ public class BasePersonDto
     /// Полное имя
     /// </summary>
     public FullNameDto FullName { get; init; }
-    
+
     /// <summary>
     /// Гендер
     /// </summary>
     public Gender Gender { get; init; }
-    
+
     /// <summary>
     /// Дата рождения
     /// </summary>
@@ -34,11 +34,11 @@ public class BasePersonDto
     /// Номер телефона
     /// </summary>
     public string PhoneNumber { get; init; }
-    
+
     /// <summary>
     /// Никнейм в телеграм
     /// </summary>
     public string Telegram { get; init; }
-    
+
     public long ChatId { get; init; }
 }

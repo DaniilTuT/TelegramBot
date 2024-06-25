@@ -15,12 +15,12 @@ public class Person : BaseEntity
     /// Имя
     /// </summary>
     public FullName FullName { get; set; }
-    
+
     /// <summary>
     /// Гендер
     /// </summary>
     public Gender Gender { get; set; }
-    
+
     /// <summary>
     /// Дата рождения
     /// </summary>
@@ -37,7 +37,7 @@ public class Person : BaseEntity
     /// Номер телефона
     /// </summary>
     public string PhoneNumber { get; set; }
-    
+
     /// <summary>
     /// Никнейм в телеграм
     /// </summary>
@@ -47,6 +47,7 @@ public class Person : BaseEntity
     /// ID чата в котором создана сущность
     /// </summary>
     public long ChatId { get; set; }
+
     /// <summary>
     /// Кастомные поля
     /// </summary>
@@ -90,7 +91,7 @@ public class Person : BaseEntity
         Gender = new EnumValidator<Gender>(nameof(gender), [Gender.None]).ValidateWithErrors(gender);
         BirthDay = new BirthDayValidator(nameof(birthDate)).ValidateWithErrors(birthDate);
         Telegram = new TelegramValidator(nameof(telegram)).ValidateWithErrors(telegram);
-        
+
         return this;
     }
 
@@ -100,14 +101,16 @@ public class Person : BaseEntity
 
     public void ConsoleWriteLine()
     {
-        Console.WriteLine("Full Name: "+this.FullName.FirstName+ ' ' + this.FullName.LastName + ' ' + this.FullName.MiddleName);
-        Console.WriteLine("Gender: "+this.Gender);
-        Console.WriteLine("BirthDay: "+this.BirthDay);
-        Console.WriteLine("Tg: "+this.Telegram);
-        Console.WriteLine("Phone Number: "+this.PhoneNumber);
-        Console.WriteLine("Id: "+this.Id+"\n");
-        Console.WriteLine("ChatId: "+this.ChatId+"\n");
+        Console.WriteLine("Full Name: " + this.FullName.FirstName + ' ' + this.FullName.LastName + ' ' +
+                          this.FullName.MiddleName);
+        Console.WriteLine("Gender: " + this.Gender);
+        Console.WriteLine("BirthDay: " + this.BirthDay);
+        Console.WriteLine("Tg: " + this.Telegram);
+        Console.WriteLine("Phone Number: " + this.PhoneNumber);
+        Console.WriteLine("Id: " + this.Id + "\n");
+        Console.WriteLine("ChatId: " + this.ChatId + "\n");
     }
+
     public override string ToString()
     {
         return "Ф.И.О.: " + this.FullName.FirstName + ' ' + this.FullName.LastName + ' ' + this.FullName.MiddleName +

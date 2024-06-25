@@ -14,5 +14,4 @@ public class PhoneNumberValidator : AbstractValidator<string>
             .NotEmpty().WithMessage(string.Format(ErrorMessages.EmptyError, paramName))
             .Matches(RegexPatterns.PhonePattern).WithMessage(ErrorMessages.PhoneFormat);
     }
-    
 }

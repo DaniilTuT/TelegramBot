@@ -11,7 +11,7 @@ public interface IBaseRepository<TEntity> where TEntity : BaseEntity
     /// Получение по идентификатору
     /// </summary>
     public TEntity GetById(Guid id);
-    
+
     /// <summary>
     /// Получение всего
     /// </summary>

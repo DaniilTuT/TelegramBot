@@ -10,7 +10,7 @@ public enum BotStates
     CreateTelegram = 5,
     UpdateFullName = 7,
     UpdateGender = 8,
-    UpdateBirthDay =9,
+    UpdateBirthDay = 9,
     UpdatePhoneNumber = 10,
     UpdateTelegram = 11,
     Delete = 12

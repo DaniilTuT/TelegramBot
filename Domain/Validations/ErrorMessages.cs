@@ -19,12 +19,12 @@ public abstract class ErrorMessages
     /// Сообщение о некорректном формате: только буквы
     /// </summary>
     public const string OnlyLetters = "{0} должно содержать только буквы.";
-    
+
     /// <summary>
     /// Сообщение о некорректной дате рождения
     /// </summary>
     public const string FutureDate = "{0} не может быть в будущем";
-    
+
     /// <summary>
     /// Сообщение о некорректной дате рождения
     /// </summary>
@@ -39,15 +39,14 @@ public abstract class ErrorMessages
     /// Сообщение об исключении empty
     /// </summary>
     public const string EmptyError = "{0} пусто.";
-    
+
     /// <summary>
     /// Сообщение об ошибке Enum
     /// </summary>
     public const string DefaultEnum = "Enum {0} не может иметь значение по умолчанию";
-    
+
     /// <summary>
     /// Сообщение об ошибке не найденной сущности
     /// </summary>
     public const string NotFoundError = "Сущность {0} с свойством {1} = {2} не была найдена.";
-
 }

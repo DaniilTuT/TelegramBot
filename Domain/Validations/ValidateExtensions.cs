@@ -7,7 +7,7 @@ namespace Domain.Validations;
 /// </summary>
 public static class ValidateExtensions
 {
-    public static T ValidateWithErrors<T> (this IValidator<T> validator, T value)
+    public static T ValidateWithErrors<T>(this IValidator<T> validator, T value)
     {
         var validationResult = validator.Validate(value);
         if (!validationResult.IsValid)
@@ -17,5 +17,4 @@ public static class ValidateExtensions
 
         return value;
     }
-    
 }
